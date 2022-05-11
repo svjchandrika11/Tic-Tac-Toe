@@ -1,0 +1,296 @@
+<html>
+    <head>
+        <script src="C:\FullStackCourse\UI\html\bootstrap-3.4.1-dist\js"></script>
+        <link href="C:\FullStackCourse\UI\html\bootstrap-3.4.1-dist\css\bootstrap.min.css">
+        <script src="C:\FullStackCourse\UI\html\jquery-3.6.0.min.js"></script>
+        <style>
+            body{
+                background-color: #7ee8fa;
+                background-image: linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%);
+
+            }
+            table,tr,td{
+                        border:1px solid black;
+                        width:300px;
+                        height: 80px;
+                        }
+            .firstdiv{
+                width: fit-content;
+                margin-left: 300px;
+                margin-top: 50px;
+                margin-right: 50px;
+                display:inline;
+                float: left;
+                background-color: rgb(57, 252, 242);
+            }
+            .seconddiv{
+                background-color: rgb(21, 226, 38);
+                margin-left: 100px;
+                margin-top: 50px;
+                margin-right: 100px;
+                width:250px;
+                height:200px;
+                float: left;
+            }
+            .thirddiv{
+                position: absolute;
+                left:60%;
+                top:60%;
+            }
+            input[type=reset]{
+                background-color: rgb(252, 150, 113);
+                color:rgb(42, 8, 240);
+                width:120px;
+                height:40px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            td:hover{
+                cursor: pointer;
+                background-color: rgb(15, 235, 81);
+            }
+            h1,h3{
+                text-align: center;
+                color:blue;
+            }
+            #us1p,#us2p{
+                padding: 20px;
+            }
+            #resultp{
+                color:red;
+                font-size: 30px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+            <h1>TIC TAC TOE</h1>
+
+            <div class="firstdiv">
+        <table id="tableId">
+            <tr>
+                <td id="c1"></td>
+                <td id="c2"></td>
+                <td id="c3"></td>
+            </tr>
+            <tr>
+                <td id="c4"></td>
+                <td id="c5"></td>
+                <td id="c6"></td>
+            </tr>
+            <tr>
+                <td id="c7"></td>
+                <td id="c8"></td>
+                <td id="c9"></td>
+            </tr>
+        </table>
+        </div>
+        <div class="seconddiv"> 
+            <h3>Status Board</h3>
+            <p id="us1p" style="display:inline">Player1:</p>
+            <p id="player1choice" style="display:inline"></p><br><br>
+            <p id="us2p" style="display:inline">Player2:</p>
+            <p id="player2choice" style="display:inline"></p>
+            <center><p id="resultp"></p></center>
+        </div><br><br>
+        <div class="thirddiv">
+        <input type="reset" class="reset" value="RESTART" onclick="reload()">
+        
+        </div>
+        <script>
+            var player1Input=prompt("Player1 please enter your choice either X/O","");
+           /* if(player1Input !=="X"||player1Input !=="x"||player1Input !=="O"||player1Input !=="o"){
+                alert("Please enter either X or O in either case");
+                //document.getElementById("seconddiv").hide();
+            }*/
+            if(player1Input==="X"||player1Input==="x"){
+                document.getElementById("player1choice").innerHTML="X";
+                document.getElementById("player2choice").innerHTML="O";
+            }
+            if(player1Input==="O"||player1Input==="o"){
+                document.getElementById("player1choice").innerHTML="O";
+                document.getElementById("player2choice").innerHTML="X";
+            }
+            var player1choice=document.getElementById("player1choice").innerText;
+            var player2choice=document.getElementById("player2choice").innerText;
+            //alert(player1choice+player2choice);
+            
+            var tictable=document.getElementsByTagName("td");
+            console.log(tictable);
+            var clickedCells=[];
+            var match=0;
+            var i=1;
+             var clickcount=1;
+            for(i=0;i<9;i++){
+                tictable[i].addEventListener('click',print);
+                tictable[i].addEventListener('click',myfun);
+                }
+               
+                function print(){
+                    //console.log(clickedCells);
+                    if(clickcount===1||clickcount===3||clickcount===5||clickcount===7||clickcount===9){
+                        this.innerHTML="<center><h2>"+player1choice+"</h2></center>";
+                        clickcount++;
+                    }
+                    else{
+                        this.innerHTML="<center><h2>"+player2choice+"</h2></center>";
+                        clickcount++;
+                    }
+                            
+                            /*if(clickedCells[i]===clickedCells[i-1])
+                             {
+                            alert("matched");
+                            match++;
+                            }
+                    alert("match"+match);
+
+                   if(match!==0){
+                    this.innerHTML="<center><h2>"+player2choice+"</h2></center>";
+                    match=0;
+                    }
+                    
+                    else{
+                        this.innerHTML="<center><h2>"+player1choice+"</h2></center>";
+                        match=0;
+                    }
+                }
+                    clickedCells.push(this.innerText);  */
+                }
+            //Checking the winning criteria
+            function myfun(){
+                //alert("func alert");
+            var c1=document.getElementById("c1").innerText;
+            var c2=document.getElementById("c2").innerText;
+            var c3=document.getElementById("c3").innerText;
+            var c4=document.getElementById("c4").innerText;
+            var c5=document.getElementById("c5").innerText;
+            var c6=document.getElementById("c6").innerText;
+            var c7=document.getElementById("c7").innerText;
+            var c8=document.getElementById("c8").innerText;
+            var c9=document.getElementById("c9").innerText;
+                
+            if(c1===player1choice && c2===player1choice && c3===player1choice){
+                document.getElementById("c1").style.backgroundColor="yellow";
+                document.getElementById("c2").style.backgroundColor="yellow";
+                document.getElementById("c3").style.backgroundColor="yellow";
+               
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c1===player2choice && c2===player2choice && c3===player2choice){
+                document.getElementById("c1").style.backgroundColor="yellow";
+                document.getElementById("c2").style.backgroundColor="yellow";
+                document.getElementById("c3").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+
+            else if(c1===player1choice && c4===player1choice && c7===player1choice){
+                document.getElementById("c1").style.backgroundColor="yellow";
+                document.getElementById("c4").style.backgroundColor="yellow";
+                document.getElementById("c7").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c1===player2choice && c4===player2choice && c7===player2choice){
+                document.getElementById("c1").style.backgroundColor="yellow";
+                document.getElementById("c4").style.backgroundColor="yellow";
+                document.getElementById("c7").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+
+            else if(c1===player1choice && c5===player1choice && c9===player1choice){
+                document.getElementById("c1").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c9").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c1===player2choice && c5===player2choice && c9===player2choice){
+                document.getElementById("c1").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c9").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+
+            else if(c2===player1choice && c5===player1choice && c8===player1choice){
+                document.getElementById("c2").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c8").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c2===player2choice && c5===player2choice && c8===player2choice){
+                document.getElementById("c2").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c8").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+
+            else if(c3===player1choice && c6===player1choice && c9===player1choice){
+                document.getElementById("c3").style.backgroundColor="yellow";
+                document.getElementById("c6").style.backgroundColor="yellow";
+                document.getElementById("c9").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c3===player2choice && c6===player2choice && c9===player2choice){
+                document.getElementById("c3").style.backgroundColor="yellow";
+                document.getElementById("c6").style.backgroundColor="yellow";
+                document.getElementById("c9").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+            
+            else if(c4===player1choice && c5===player1choice && c6===player1choice){
+                document.getElementById("c4").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c6").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c4===player2choice && c5===player2choice && c6===player2choice){
+                document.getElementById("c4").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c6").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+
+            else if(c7===player1choice && c8===player1choice && c9===player1choice){
+                document.getElementById("c7").style.backgroundColor="yellow";
+                document.getElementById("c8").style.backgroundColor="yellow";
+                document.getElementById("c9").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c7===player2choice && c8===player2choice && c9===player2choice){
+                document.getElementById("c7").style.backgroundColor="yellow";
+                document.getElementById("c8").style.backgroundColor="yellow";
+                document.getElementById("c9").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+            else if(c3===player1choice && c5===player1choice && c7===player1choice){
+                document.getElementById("c3").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c7").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player1";
+            }
+            else if(c3===player2choice && c5===player2choice && c7===player2choice){
+                document.getElementById("c3").style.backgroundColor="yellow";
+                document.getElementById("c5").style.backgroundColor="yellow";
+                document.getElementById("c7").style.backgroundColor="yellow";
+                document.getElementById("resultp").innerHTML="Winner is Player2";
+            }
+            else if ((c1 === player1choice || c1 === player2choice) && (c2 === player1choice
+        || c2 === player2choice) && (c3 === player1choice || c3 === player2choice) &&
+        (c4 === player1choice || c4 === player2choice) && (c5 === player1choice ||
+        c5 === player2choice) && (c6 === player1choice || c6 === player2choice) &&
+        (c7 === player1choice || c7 === player2choice) && (c8 === player1choice ||
+        c8 === player2choice) && (c9 === player1choice || c9 === player2choice)) {
+            document.getElementById('resultp').innerHTML = "Match Tie";
+        }
+       
+    } 
+            function redirect(){
+                window.location="tic-tac-toe-index.html";    
+            }
+            $("document").ready(function(){
+                $(".reset").click(function reload(){
+                setTimeout('redirect()',900);
+            });
+        });
+        </script>
+    </body>
+</html>
